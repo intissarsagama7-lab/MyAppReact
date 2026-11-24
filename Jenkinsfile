@@ -41,7 +41,7 @@ pipeline {
         withCredentials([usernamePassword(credentialsId: 'dockerhub-creds',
                                           usernameVariable: 'USER',
                                           passwordVariable: 'PASS')]) {
-          bat 'echo %PASS% | docker login -u %USER% --password-stdin'
+          bat 'echo %PASS%| docker login -u %USER% --password-stdin'
           bat "docker push %REPO%/mern-server:%TAG%"
           bat "docker push %REPO%/mern-server:latest"
           bat "docker push %REPO%/mern-client:%TAG%"
