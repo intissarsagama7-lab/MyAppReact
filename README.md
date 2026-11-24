@@ -102,3 +102,30 @@ Les trois conteneurs (`mongodb`, `server`, `client`) sont démarrés par Docker 
 
 ### Client React – http://localhost:3000
 ![Client React](screenshots/client.png)
+
+## 7. Pipeline Jenkins – `Jenkinsfile`
+Le pipeline automatise : Checkout → Build des images → Déploiement (docker compose) → Smoke test → Push sur Docker Hub.
+
+- **Build images** : construction de `mern-server` et `mern-client` avec deux tags (`build-N` et `latest`).
+- **Deploy** : suppression des anciens conteneurs puis `docker compose up -d --build`.
+- **Smoke test** : vérification de l'API (`/api/health` doit renvoyer « API is running ») et du client (`HTTP 200 OK`).
+- **Push** : connexion à Docker Hub avec le credential Jenkins `dockerhub-creds`, puis push des images.
+
+### Job Jenkins
+![Job Jenkins](screenshots/jenkins-job.png)
+
+### Étapes du pipeline (build #3)
+![Pipeline Jenkins](screenshots/jenkins-pipeline.png)
+
+### Images et conteneurs
+![Images et conteneurs Docker](screenshots/docker-images-ps.png)
+
+### Docker Hub
+![mern-server sur Docker Hub](screenshots/dockerhub-server.png)
+
+![mern-client sur Docker Hub](screenshots/dockerhub-client.png)
+
+## Liens
+- Projet GitHub : https://github.com/intissarsagama7-lab/MyAppReact
+- Image serveur : https://hub.docker.com/r/intissarsagaama/mern-server
+- Image client : https://hub.docker.com/r/intissarsagaama/mern-client
